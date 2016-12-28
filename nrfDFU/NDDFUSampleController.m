@@ -78,9 +78,14 @@ NSString *const kDeviceDiscoveryDevice = @"kDeviceDiscoveryDevice";
     fprintf(stdout, "%d/%d\n", (uint32_t)(progress * device.firmware.data.length), (uint32_t)device.firmware.data.length);
 }
 
-
+/**
+ It allows to upload an applications
+ */
 - (void)updateWithApplication:(NSString *)applicationFileName uuid:(NSString *)uuid completed:(void (^)(NSError* error))completed {
     NSError* error;
+    
+    fprintf(stdout, "updateWithApplication\n");
+
     // load the firmware, only .bin files are supported
     _firmware = [[NDDFUFirmware alloc] initWithApplicationURL:[NSURL fileURLWithPath:applicationFileName]];
     if( ![_firmware loadFileData:&error] ) {

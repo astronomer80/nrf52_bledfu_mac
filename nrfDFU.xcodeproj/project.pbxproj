@@ -42,6 +42,7 @@
 		3FA145B31BCDC28900BEA19A /* NDDFUDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDDFUDevice.m; sourceTree = "<group>"; };
 		3FA567191BD1C54B00A45C9A /* NDDFUFirmware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDDFUFirmware.h; sourceTree = "<group>"; };
 		3FA5671A1BD1C54B00A45C9A /* NDDFUFirmware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDDFUFirmware.m; sourceTree = "<group>"; };
+		D3CBFF2D1DD0CFD600BDD155 /* Note.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Note.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +62,7 @@
 		3FA1453A1BCCDBF000BEA19A = {
 			isa = PBXGroup;
 			children = (
+				D3CBFF2D1DD0CFD600BDD155 /* Note.rtf */,
 				3FA145AD1BCD87F100BEA19A /* Frameworks */,
 				3FA145451BCCDBF000BEA19A /* nrfDFU */,
 				3FA145441BCCDBF000BEA19A /* Products */,
@@ -127,7 +129,7 @@
 		3FA1453B1BCCDBF000BEA19A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = Superstructure;
 				TargetAttributes = {
 					3FA145421BCCDBF000BEA19A = {
@@ -180,8 +182,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -222,8 +226,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;

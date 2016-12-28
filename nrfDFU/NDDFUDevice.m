@@ -66,7 +66,7 @@ NSString *const kSamd21ServiceUUID = @"88CB59C8-2293-4EE1-8F33-01E7904DB115";
 
 - (void)onPeripheralConnected:(CBCentralManager*)manager {
     if( self.delegate != nil ) {
-        [self.delegate deviceUpdateStatus:self status:@"connecting"];
+        [self.delegate deviceUpdateStatus:self status:@"connecting1"];
     }
     if( _service == nil || _controlPointCharacteristic == nil || _packetCharacteristic == nil || _versionCharacteristic == nil ) {
         [_peripheral discoverServices:nil];//[NSArray arrayWithObject:[CBUUID UUIDWithString:kDeviceDFUServiceUUID]]];

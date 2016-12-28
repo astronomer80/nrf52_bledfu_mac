@@ -58,7 +58,7 @@ int main(int argc, const char * argv[]) {
                 NDDFUDevice* device = dfuController.devices[i];
                 // only print out devices that have the DFU service (devices won't be able to be connected if they don't have the DFU service)
                 if( device.isConnected ) {
-                    fprintf(stdout, "%s[%s]\n", device.peripheral.name.UTF8String, device.peripheral.identifier.UUIDString.UTF8String);
+                    fprintf(stdout, "%s [%s]\n", device.peripheral.name.UTF8String, device.peripheral.identifier.UUIDString.UTF8String);
                 }
             }
             exit(0);
