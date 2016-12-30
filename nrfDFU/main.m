@@ -17,6 +17,7 @@ int main(int argc, const char * argv[]) {
         return 1;
     }
     NDDFUSampleController* dfuController = [[NDDFUSampleController alloc] init];
+    //Command to update the device application giving the address and the file to upload
     if( strcmp(argv[1], "update") == 0 ) {
         if( argc < 4 ) {
             fprintf(stderr, "error: missing uuid and application file name command line arguments.\n");
@@ -34,6 +35,7 @@ int main(int argc, const char * argv[]) {
                                            exit(0);
                                        }
                                    }];
+    //TODO remove it
     } else if( strcmp(argv[1], "samd21") == 0 ) {
             if( argc < 4 ) {
                 fprintf(stderr, "error: missing uuid and application file name command line arguments.\n");
@@ -51,9 +53,13 @@ int main(int argc, const char * argv[]) {
                                                exit(0);
                                            }
                                        }];
+    //Discover BLE devices and print the device address
     } else if( strcmp(argv[1], "discover")  == 0 ) {
+        fprintf(stdout, "Discovering devices...\n");
         // wait a little bit
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if(dfuController.devices.count==0)
+                fprintf(stdout, "No device discovered\n");
             for( int i = 0; i < dfuController.devices.count; i++ ) {
                 NDDFUDevice* device = dfuController.devices[i];
                 // only print out devices that have the DFU service (devices won't be able to be connected if they don't have the DFU service)
