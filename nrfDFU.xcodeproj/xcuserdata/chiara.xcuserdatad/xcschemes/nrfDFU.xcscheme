@@ -68,11 +68,15 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "discover"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "update EB7AED72-31E7-4DA7-831B-B59C158B3DFF nrfDFU/app_blink_package_500/nrf52832_xxaa_s132.bin"
+            argument = "update EB7AED72-31E7-4DA7-831B-B59C158B3DFF /users/chiara/Documents/nrfDFU/app_blink_package_500/nrf52832_xxaa_s132.bin"
             isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "update CA70D541-C392-415E-992C-9E48BE935674 /users/chiara/Documents/nrfDFU/app_blink_package_500/nrf52832_xxaa_s132.bin"
+            isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

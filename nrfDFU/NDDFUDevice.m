@@ -66,7 +66,7 @@ NSString *const kSamd21ServiceUUID = @"88CB59C8-2293-4EE1-8F33-01E7904DB115";
 
 - (void)onPeripheralConnected:(CBCentralManager*)manager {
     if( self.delegate != nil ) {
-        [self.delegate deviceUpdateStatus:self status:@"connecting1"];
+        [self.delegate deviceUpdateStatus:self status:@"connecting..."];
     }
     if( _service == nil || _controlPointCharacteristic == nil || _packetCharacteristic == nil || _versionCharacteristic == nil ) {
         [_peripheral discoverServices:nil];//[NSArray arrayWithObject:[CBUUID UUIDWithString:kDeviceDFUServiceUUID]]];
@@ -220,6 +220,8 @@ NSString *const kSamd21ServiceUUID = @"88CB59C8-2293-4EE1-8F33-01E7904DB115";
 }
 
 - (void)_restartIntoBootloader {
+    fprintf(stdout, "_restartIntoBootloader\n");
+    
     // listen for packets from the control point
     [_peripheral setNotifyValue:YES forCharacteristic:_controlPointCharacteristic];
     // TODO: seems lame to have to wait three seconds between notify and rebooting, but doesn't work reliably without it
@@ -235,11 +237,15 @@ NSString *const kSamd21ServiceUUID = @"88CB59C8-2293-4EE1-8F33-01E7904DB115";
     });
 }
 
+ /**
+  Sends the "start DFU" request and the image size
+  */
 - (void)_startDFURequest {
+    fprintf(stdout, "_startDFURequest\n");
     // listen for packets from the control point
     [_peripheral setNotifyValue:YES forCharacteristic:_controlPointCharacteristic];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        // start the DFU
+        // start the DFU (0x0104)
         uint8_t startDFURequest[] = {START_DFU_REQUEST, APPLICATION};
         [_peripheral writeValue:[NSData dataWithBytes:startDFURequest length:sizeof(startDFURequest)]
               forCharacteristic:_controlPointCharacteristic type:CBCharacteristicWriteWithResponse];
@@ -251,7 +257,11 @@ NSString *const kSamd21ServiceUUID = @"88CB59C8-2293-4EE1-8F33-01E7904DB115";
     });
 }
 
+/**
+ Send Init DFU request (0x0200 and 0x0201)
+ */
 - (void)_sendInitPacket {
+    //Create the init packet //TODO: remove this part and use the DAT file instead
     struct init_packet_t {
         uint16_t deviceType, deviceRevision;
         uint32_t applicationVersion;
@@ -260,22 +270,31 @@ NSString *const kSamd21ServiceUUID = @"88CB59C8-2293-4EE1-8F33-01E7904DB115";
     }
     // TODO: don't hardcode the version strings here!
     init_packet = { 0, 0, 0, 1, 0x0064, [_firmware crc] };
-    uint8_t initPacketStart[] = {INITIALIZE_DFU_PARAMETERS_REQUEST, START_INIT_PACKET};
+    uint8_t initPacketStart[] = {INITIALIZE_DFU_PARAMETERS_REQUEST, START_INIT_PACKET};  //Send 0x0200
     [_peripheral writeValue:[NSData dataWithBytes:initPacketStart length:sizeof(initPacketStart)] forCharacteristic:_controlPointCharacteristic type:CBCharacteristicWriteWithResponse];
+    
+    //Send the Init packet
     [_peripheral writeValue:[NSData dataWithBytes:&init_packet length:sizeof(init_packet)] forCharacteristic:_packetCharacteristic type:CBCharacteristicWriteWithoutResponse];
-    uint8_t initPacketEnd[] = {INITIALIZE_DFU_PARAMETERS_REQUEST, END_INIT_PACKET};
+    
+    uint8_t initPacketEnd[] = {INITIALIZE_DFU_PARAMETERS_REQUEST, END_INIT_PACKET};  //Send 0x0201
     [_peripheral writeValue:[NSData dataWithBytes:initPacketEnd length:sizeof(initPacketEnd)] forCharacteristic:_controlPointCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
+/**
+ Sends packet receipt notification (0x08) and RECEIVE_FIRMWARE_IMAGE_REQUEST (0x03)
+ */
 - (void)_startSendingFirmware {
-    uint8_t value[] = {PACKET_RECEIPT_NOTIFICATION_REQUEST, PACKETS_NOTIFICATION_INTERVAL, 0};
+    uint8_t value[] = {PACKET_RECEIPT_NOTIFICATION_REQUEST, PACKETS_NOTIFICATION_INTERVAL, 0}; //0x08
     [_peripheral writeValue:[NSData dataWithBytes:value length:sizeof(value)] forCharacteristic:_controlPointCharacteristic type:CBCharacteristicWriteWithResponse];
-    uint8_t value2 = RECEIVE_FIRMWARE_IMAGE_REQUEST;
+    uint8_t value2 = RECEIVE_FIRMWARE_IMAGE_REQUEST;  //0x03
     [_peripheral writeValue:[NSData dataWithBytes:&value2 length:sizeof(value2)] forCharacteristic:_controlPointCharacteristic type:CBCharacteristicWriteWithResponse];
     _firmwareBytesSent = 0;
     [self _sendFirmwarePackets];
 }
 
+/**
+ Sends the firmware image pacaket by packet
+ */
 - (void)_sendFirmwarePackets {
     if( self.delegate != nil ) {
         [self.delegate deviceUpdateProgress:self progress:((float)_firmwareBytesSent) / _firmware.data.length];
@@ -287,22 +306,33 @@ NSString *const kSamd21ServiceUUID = @"88CB59C8-2293-4EE1-8F33-01E7904DB115";
     }
 }
 
+/**
+ Send VALIDATE_FIRMWARE_REQUEST (0x04)
+ */
 - (void)_sendValidateFirmwareRequest {
     uint8_t value = VALIDATE_FIRMWARE_REQUEST;
     [_peripheral writeValue:[NSData dataWithBytes:&value length:sizeof(value)] forCharacteristic:_controlPointCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
+/**
+ Send ACTIVATE_AND_RESET_REQUEST (0x05)
+ */
 - (void)_sendActivateAndReset {
     uint8_t value = ACTIVATE_AND_RESET_REQUEST;
     [_peripheral writeValue:[NSData dataWithBytes:&value length:sizeof(value)] forCharacteristic:_controlPointCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 - (void)_handleDeviceResponse:(uint8_t)responseCode requestedCode:(uint8_t)requestedCode responseStatus:(uint8_t)responseStatus {
+    fprintf(stdout, "responseCode:%d\n", responseCode);
+    fprintf(stdout, "requestedCode:%d\n", requestedCode);
+    fprintf(stdout, "responseStatus:%d\n", responseStatus);
     if( responseCode == RESPONSE_CODE ) {
         switch( requestedCode ) {
             case START_DFU_REQUEST:
+                fprintf(stdout, "START_DFU_REQUEST: ");
                 switch (responseStatus) {
                     case OPERATION_SUCCESSFUL_RESPONSE:
+                        fprintf(stdout, "OK\n");
                         [self _sendInitPacket];
                         break;
                     default:
@@ -310,8 +340,11 @@ NSString *const kSamd21ServiceUUID = @"88CB59C8-2293-4EE1-8F33-01E7904DB115";
                 }
                 break;
             case RECEIVE_FIRMWARE_IMAGE_REQUEST:
+                fprintf(stdout, "RECEIVE_FIRMWARE_IMAGE_REQUEST:");
+
                 switch(responseStatus) {
                     case OPERATION_SUCCESSFUL_RESPONSE:
+                        fprintf(stdout, "OK\n");
                         [self _sendValidateFirmwareRequest];
                         break;
                     default:

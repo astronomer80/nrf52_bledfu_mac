@@ -23,8 +23,11 @@ int main(int argc, const char * argv[]) {
             fprintf(stderr, "error: missing uuid and application file name command line arguments.\n");
             return 1;
         }
+        //Retrieve data from the arguments
         NSString* deviceUUID = [NSString stringWithUTF8String:argv[2]];
         NSString* applicationFileName = [NSString stringWithUTF8String:argv[3]];
+        
+        //Launch updateWithApplication in NDDFUSampleController
         [dfuController updateWithApplication:applicationFileName uuid:deviceUUID
                                    completed:^(NSError *error) {
                                        if( error != nil ) {

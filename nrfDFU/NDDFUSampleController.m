@@ -86,6 +86,9 @@ NSString *const kDeviceDiscoveryDevice = @"kDeviceDiscoveryDevice";
     
     fprintf(stdout, "updateWithApplication\n");
 
+    fprintf(stdout, "Trying to update %s\n", [uuid UTF8String]);
+
+    
     // load the firmware, only .bin files are supported
     _firmware = [[NDDFUFirmware alloc] initWithApplicationURL:[NSURL fileURLWithPath:applicationFileName]];
     if( ![_firmware loadFileData:&error] ) {
@@ -102,6 +105,7 @@ NSString *const kDeviceDiscoveryDevice = @"kDeviceDiscoveryDevice";
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if( _deviceToUpdate == nil ) {
             NSError* error = nil;
+            //device not found
             if( uuid == nil ) {
                 error = [NSError errorWithDomain:@"DFU"
                                             code:0
