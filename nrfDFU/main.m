@@ -26,9 +26,10 @@ int main(int argc, const char * argv[]) {
         //Retrieve data from the arguments
         NSString* deviceUUID = [NSString stringWithUTF8String:argv[2]];
         NSString* applicationFileName = [NSString stringWithUTF8String:argv[3]];
+        NSString* initFileName = [NSString stringWithUTF8String:argv[4]];
         
         //Launch updateWithApplication in NDDFUSampleController
-        [dfuController updateWithApplication:applicationFileName uuid:deviceUUID
+        [dfuController updateWithApplication:applicationFileName initFileName:initFileName uuid:deviceUUID
                                    completed:^(NSError *error) {
                                        if( error != nil ) {
                                            fprintf(stderr, "error: %s\n", [[error localizedDescription] UTF8String]);

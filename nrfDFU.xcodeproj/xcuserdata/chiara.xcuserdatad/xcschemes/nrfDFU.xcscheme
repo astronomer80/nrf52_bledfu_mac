@@ -75,7 +75,7 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "update CA70D541-C392-415E-992C-9E48BE935674 /users/chiara/Documents/nrfDFU/app_blink_package_500/nrf52832_xxaa_s132.bin"
+            argument = "update CA70D541-C392-415E-992C-9E48BE935674 /users/chiara/Documents/nrfDFU/app_blink_package_500/nrf52832_xxaa_s132.bin /users/chiara/Documents/nrfDFU/app_blink_package_500/nrf52832_xxaa_s132.dat"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

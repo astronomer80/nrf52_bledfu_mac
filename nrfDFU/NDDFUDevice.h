@@ -85,6 +85,8 @@ typedef enum {
     NSUInteger _versionMajor;
     NSUInteger _versionMinor;
     NDDFUFirmware* _firmware;
+    NDDFUFirmware* _initfile;
+    
     DfuState _state;
     uint32_t _firmwareBytesSent;
     bool _updatingSamd21;

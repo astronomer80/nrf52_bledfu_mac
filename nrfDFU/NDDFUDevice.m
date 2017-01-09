@@ -241,7 +241,7 @@ NSString *const kSamd21ServiceUUID = @"88CB59C8-2293-4EE1-8F33-01E7904DB115";
   Sends the "start DFU" request and the image size
   */
 - (void)_startDFURequest {
-    fprintf(stdout, "_startDFURequest\n");
+    fprintf(stdout, "Sending Start DFU request...\n");
     // listen for packets from the control point
     [_peripheral setNotifyValue:YES forCharacteristic:_controlPointCharacteristic];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -261,6 +261,8 @@ NSString *const kSamd21ServiceUUID = @"88CB59C8-2293-4EE1-8F33-01E7904DB115";
  Send Init DFU request (0x0200 and 0x0201)
  */
 - (void)_sendInitPacket {
+    fprintf(stdout, "Sending Init DFU request...\n");
+    
     //Create the init packet //TODO: remove this part and use the DAT file instead
     struct init_packet_t {
         uint16_t deviceType, deviceRevision;
@@ -270,13 +272,27 @@ NSString *const kSamd21ServiceUUID = @"88CB59C8-2293-4EE1-8F33-01E7904DB115";
     }
     // TODO: don't hardcode the version strings here!
     init_packet = { 0, 0, 0, 1, 0x0064, [_firmware crc] };
-    uint8_t initPacketStart[] = {INITIALIZE_DFU_PARAMETERS_REQUEST, START_INIT_PACKET};  //Send 0x0200
+    
+    //Send 0x0200
+    uint8_t initPacketStart[] = {INITIALIZE_DFU_PARAMETERS_REQUEST, START_INIT_PACKET};
     [_peripheral writeValue:[NSData dataWithBytes:initPacketStart length:sizeof(initPacketStart)] forCharacteristic:_controlPointCharacteristic type:CBCharacteristicWriteWithResponse];
     
     //Send the Init packet
     [_peripheral writeValue:[NSData dataWithBytes:&init_packet length:sizeof(init_packet)] forCharacteristic:_packetCharacteristic type:CBCharacteristicWriteWithoutResponse];
     
-    uint8_t initPacketEnd[] = {INITIALIZE_DFU_PARAMETERS_REQUEST, END_INIT_PACKET};  //Send 0x0201
+    
+    //***TODO send the DAT file content instead of the init packet
+    uint32_t bytesToSend = fmin(PACKET_SIZE, ((uint32_t)_firmware.data.length) - _firmwareBytesSent);
+    [_peripheral writeValue:[_firmware.data subdataWithRange:NSMakeRange(_firmwareBytesSent, bytesToSend)] forCharacteristic:_packetCharacteristic type:CBCharacteristicWriteWithoutResponse];
+    
+    uint32_t fileSizeCollection[3] = { 0, 0, (uint32_t)_firmware.data.length };
+    [_peripheral writeValue:[NSData dataWithBytes:fileSizeCollection length:sizeof(fileSizeCollection)]
+          forCharacteristic:_packetCharacteristic type:CBCharacteristicWriteWithoutResponse];
+    
+    
+    
+    //Send 0x0201
+    uint8_t initPacketEnd[] = {INITIALIZE_DFU_PARAMETERS_REQUEST, END_INIT_PACKET};
     [_peripheral writeValue:[NSData dataWithBytes:initPacketEnd length:sizeof(initPacketEnd)] forCharacteristic:_controlPointCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
@@ -284,6 +300,8 @@ NSString *const kSamd21ServiceUUID = @"88CB59C8-2293-4EE1-8F33-01E7904DB115";
  Sends packet receipt notification (0x08) and RECEIVE_FIRMWARE_IMAGE_REQUEST (0x03)
  */
 - (void)_startSendingFirmware {
+    fprintf(stdout, "Sending Receive firmware imnage request...\n");
+    
     uint8_t value[] = {PACKET_RECEIPT_NOTIFICATION_REQUEST, PACKETS_NOTIFICATION_INTERVAL, 0}; //0x08
     [_peripheral writeValue:[NSData dataWithBytes:value length:sizeof(value)] forCharacteristic:_controlPointCharacteristic type:CBCharacteristicWriteWithResponse];
     uint8_t value2 = RECEIVE_FIRMWARE_IMAGE_REQUEST;  //0x03
@@ -296,11 +314,15 @@ NSString *const kSamd21ServiceUUID = @"88CB59C8-2293-4EE1-8F33-01E7904DB115";
  Sends the firmware image pacaket by packet
  */
 - (void)_sendFirmwarePackets {
+    fprintf(stdout, "Sending firmware packets...\n");
+
+    
     if( self.delegate != nil ) {
         [self.delegate deviceUpdateProgress:self progress:((float)_firmwareBytesSent) / _firmware.data.length];
     }
     for( uint32_t j = 0; _firmwareBytesSent < _firmware.data.length && j < PACKETS_NOTIFICATION_INTERVAL; j++ ) {
         uint32_t bytesToSend = fmin(PACKET_SIZE, ((uint32_t)_firmware.data.length) - _firmwareBytesSent);
+        
         [_peripheral writeValue:[_firmware.data subdataWithRange:NSMakeRange(_firmwareBytesSent, bytesToSend)] forCharacteristic:_packetCharacteristic type:CBCharacteristicWriteWithoutResponse];
         _firmwareBytesSent += bytesToSend;
     }

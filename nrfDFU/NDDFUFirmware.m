@@ -39,6 +39,25 @@
     return YES;
 }
 
+- (BOOL)loadFileInit:(NSError**)error
+{
+    if( ![[[_url pathExtension] lowercaseString] isEqualToString:@"dat"] ) {
+        *error = [NSError errorWithDomain:@"DFU"
+                                     code:0
+                                 userInfo:@{NSLocalizedDescriptionKey: @"Only .dat format files supported."}];
+        return NO;
+    }
+    _data = [NSData dataWithContentsOfURL:_url];
+    if( _data == nil ) {
+        *error = [NSError errorWithDomain:@"DFU"
+                                     code:0
+                                 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Unable to read contents of '%@'.", [_url absoluteString]]}];
+        return NO;
+    }
+    return YES;
+}
+
+
 // this routine is from the nRF51_SDK_9/components/libraries/crc16/crc16.c
 /* Copyright (c) 2013 Nordic Semiconductor. All Rights Reserved.
  *

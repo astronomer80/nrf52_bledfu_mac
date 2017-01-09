@@ -18,6 +18,8 @@
 
 - (id)initWithApplicationURL:(NSURL*)url;
 - (BOOL)loadFileData:(NSError**)error;
+- (BOOL)loadFileInit:(NSError**)error;
+
 - (uint16_t)crc;
 
 @end

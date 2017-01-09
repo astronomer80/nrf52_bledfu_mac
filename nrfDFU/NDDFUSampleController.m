@@ -81,10 +81,13 @@ NSString *const kDeviceDiscoveryDevice = @"kDeviceDiscoveryDevice";
 /**
  It allows to upload an applications
  */
-- (void)updateWithApplication:(NSString *)applicationFileName uuid:(NSString *)uuid completed:(void (^)(NSError* error))completed {
+- (void)updateWithApplication:(NSString *)applicationFileName initFileName:(NSString *)initFileName uuid:(NSString *)uuid completed:(void (^)(NSError* error))completed {
     NSError* error;
     
     fprintf(stdout, "updateWithApplication\n");
+    fprintf(stdout, "initFileName %s\n", [initFileName UTF8String]);
+    fprintf(stdout, "applicationFileName %s\n", [applicationFileName UTF8String]);
+
 
     fprintf(stdout, "Trying to update %s\n", [uuid UTF8String]);
 
@@ -95,6 +98,12 @@ NSString *const kDeviceDiscoveryDevice = @"kDeviceDiscoveryDevice";
         completed(error);
         return;
     }
+    _initfile = [[NDDFUFirmware alloc] initWithApplicationURL:[NSURL fileURLWithPath:initFileName]];
+    if( ![_initfile loadFileInit:&error] ) {
+        completed(error);
+        return;
+    }
+    
     // remember the block the user wants called back
     _updateCompleteHandler = completed;
     // remember the UUID of the device that the user is hoping we'll find

@@ -1,5 +1,5 @@
 # nrfDFU
-OSX command line application for performing an nRF51 device firmware update
+OSX command line application for performing an nRF52 device firmware update
 
 This is a simple command line program I wrote based on Nordic's documentation and their 
 RF Toolbox https://github.com/NordicSemiconductor/IOS-nRF-Toolbox sample app.
