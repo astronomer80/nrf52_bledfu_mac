@@ -1,0 +1,103 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf760
+\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;\f2\fnil\fcharset0 Menlo-Bold;
+\f3\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;\red0\green116\blue0;
+\red0\green0\blue0;\red46\green13\blue110;\red170\green13\blue145;\red28\green0\blue207;\red196\green26\blue22;
+\red38\green71\blue75;\red100\green56\blue32;\red63\green110\blue116;\red92\green38\blue153;\red26\green26\blue26;
+\red242\green242\blue242;}
+{\*\expandedcolortbl;;\csgray\c0;\csgray\c100000;\csgenericrgb\c0\c45600\c0;
+\csgenericrgb\c0\c0\c0;\csgenericrgb\c18100\c5200\c43100;\csgenericrgb\c66500\c5200\c56900;\csgenericrgb\c11000\c0\c81000;\csgenericrgb\c77000\c10200\c8600;
+\csgenericrgb\c14900\c27800\c29400;\csgenericrgb\c39100\c22000\c12500;\csgenericrgb\c24700\c43100\c45600;\csgenericrgb\c35900\c14900\c60100;\cssrgb\c13333\c13333\c13333;
+\cssrgb\c96078\c96078\c96078;}
+\margl1440\margr1440\vieww25100\viewh12920\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Argument passed on launch: Product - Scheme - Edit scheme\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 ./nrfDFU_app
+\f0\fs24 \cf0 \cb1 \CocoaLigature1  discover
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 \
+./nrfDFU_app
+\f0\fs24 \cf0 \cb1 \CocoaLigature1  update EB7AED72-31E7-4DA7-831B-B59C158B3DFF nrfDFU/app_blink_package_500/nrf52832_xxaa_s132.bin\
+\pard\pardeftab720\sl340\partightenfactor0
+\cf0 \
+
+\b UPDATE:
+\b0 \
+main\
+\pard\tx543\pardeftab543\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf4 \CocoaLigature0 NDDFUSampleController
+\f0\fs24 \cf0 \CocoaLigature1 \
+
+\f1\fs22 \cf4 \CocoaLigature0 	updateWithApplication \
+\pard\tx543\pardeftab543\pardirnatural\partightenfactor0
+\cf5 	initCentralManager\
+	\cf6 initWithDelegate\
+\cf5 NDDFUDevice.m \
+	onPeripheralConnected\
+	_handleDeviceResponse: the state machine\
+\pard\tx543\pardeftab543\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \CocoaLigature1 \
+\pard\pardeftab720\sl340\partightenfactor0
+\cf0 \
+\pard\tx543\pardeftab543\pardirnatural\partightenfactor0
+
+\f2\b\fs22 \cf5 \CocoaLigature0 \
+CA70D541-C392-415E-992C-9E48BE935674\
+\
+DISCOVERING:
+\f0\b0\fs24 \cf0 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 main.c:\
+	riga 54\
+\pard\tx543\pardeftab543\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf5 \CocoaLigature0     \} \cf7 else\cf5  \cf7 if\cf5 ( \cf6 strcmp\cf5 (argv[\cf8 1\cf5 ], \cf9 "discover"\cf5 )  == \cf8 0\cf5  ) \{ \
+\
+NDDFUDevice.m onPeripheralConnected\
+\
+riga 60:\
+\cf7 if\cf5 ( device.\cf10 isConnected\cf5  ) \{\
+                    \cf6 fprintf\cf5 (\cf11 stdout\cf5 , \cf9 "%s[%s]\\n"\cf5 , device.\cf12 peripheral\cf5 .\cf13 name\cf5 .\cf13 UTF8String\cf5 , device.\cf12 peripheral\cf5 .\cf13 identifier\cf5 .\cf13 UUIDString\cf5 .\cf13 UTF8String\cf5 );\
+\
+Stampa: 
+\f2\b DfuTarg[EB7AED72-31E7-4DA7-831B-B59C158B3DFF]\
+
+\f1\b0 \
+NDDFUDevice:\
+- (\cf7 void\cf5 )onPeripheralConnected:(\cf13 CBCentralManager\cf5 *)manager \{\
+    \cf7 if\cf5 ( \cf7 self\cf5 .\cf12 delegate\cf5  != \cf7 nil\cf5  ) \{\
+        [\cf7 self\cf5 .\cf12 delegate\cf5  \cf10 deviceUpdateStatus\cf5 :\cf7 self\cf5  \cf10 status\cf5 :\cf9 @"connecting1"\cf5 ];\
+\
+riga 98:\
+- (\cf7 void\cf5 )peripheral:(\cf13 CBPeripheral\cf5  *)peripheral didDiscoverServices:(\cf13 NSError\cf5  *)error \{\
+\
+\
+\pard\tx543\pardeftab543\pardirnatural\partightenfactor0
+
+\f2\b \cf5 NOTES
+\f1\b0 \
+To create the app\
+Product - Archive - Export - Save Built product - Next - Export\
+The app will be in the last son folder of the folder created (Eg: 
+\f0\fs24 nrfDFU 2017-01-02 20-38-33\cf0 \CocoaLigature1 )
+\f1\fs22 \cf5 \CocoaLigature0 \
+\
+Add Platforms:\
+\pard\pardeftab720\sl340\partightenfactor0
+
+\f3\fs29\fsmilli14700 \cf14 \cb15 \expnd0\expndtw0\kerning0
+\CocoaLigature1 Control-Click on /Applications/Arduino.app and select "Show Package Contents" from the pop-up menu.\'a0 From there you can drill down to;\
+/Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/...
+\f1\fs22 \cf5 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\pard\tx543\pardeftab543\pardirnatural\partightenfactor0
+\cf5 \
+\pard\tx543\pardeftab543\pardirnatural\partightenfactor0
+
+\f2\b \cf5 TODO
+\f1\b0 \
+- NDDFUDevice: necessary to update UUIDs\
+- dat file management}
