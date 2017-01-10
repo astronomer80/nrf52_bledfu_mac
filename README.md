@@ -27,7 +27,7 @@ Linux application: https://github.com/astronomer80/ota-dfu-python/tree/buttonles
 Windows Application: https://github.com/astronomer80/nrf52_bledfu_win/tree/consoleapp
 
 
-DFU Procedure performed by this application:
+<b>DFU Procedure performed by this application:</b>
 
 1)Send 'START DFU' opcode + Application Command (0x0104)
 
