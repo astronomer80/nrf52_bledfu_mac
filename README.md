@@ -1,10 +1,10 @@
 # nrfDFU
 OSX command line application for performing an nRF52 device firmware update
 
-This is a simple command line program I wrote based on Nordic's documentation and their 
+This is a simple command line program wrote based on Nordic's documentation and their 
 RF Toolbox https://github.com/NordicSemiconductor/IOS-nRF-Toolbox sample app.
 
-My goal was to better understand the nRF51 DFU process and to have a simple command 
+The goal was to better understand the nRF52 DFU process and to have a simple command 
 line program I could use from build scripts to update projects of mine during development and testing.
 
 For anyone interested in using this as a starting point for their own learning, main.c and NDDFUSampleController 
