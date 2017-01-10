@@ -22,9 +22,9 @@ an iOS app that I've written that talks to an nRF52 based board of mine.
 
 Issues and especially pull requests welcome!
 
-For Windows or Linux here other repos:<br>
-Linux application: https://github.com/astronomer80/ota-dfu-python/tree/buttonless
-Windows Application: https://github.com/astronomer80/nrf52_bledfu_win/tree/consoleapp
+<b>For Windows or Linux here other repos:</b><br>
+Linux application: https://github.com/astronomer80/ota-dfu-python/tree/buttonless<br>
+Windows Application: https://github.com/astronomer80/nrf52_bledfu_win/tree/consoleapp<br>
 
 
 <b>DFU Procedure performed by this application:</b><br>
