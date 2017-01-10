@@ -1,5 +1,5 @@
 # nrfDFU
-OSX command line application for performing an nRF52 device firmware update
+OSX command line application for performing an nRF52 device firmware update for softdevice 2.0.0 and Nordic SDK v11
 
 This is a simple command line program wrote based on Nordic's documentation and their 
 RF Toolbox https://github.com/NordicSemiconductor/IOS-nRF-Toolbox sample app.
@@ -17,8 +17,8 @@ NDDFUDevice and NDDFUFirmware.
 The code doesn't support SoftDevice or Bootloader updates yet, and things like app version, device ID and version
 and the required SoftDevice ID are currently hardcoded.
 
-My plan is to further clean up the code, which I expect will be mostly driven by my plan to include it in
-an iOS app that I've written that talks to an nRF51 based board of mine.
+The plan is to further clean up the code, which I expect will be mostly driven by my plan to include it in
+an iOS app that I've written that talks to an nRF52 based board of mine.
 
 Issues and especially pull requests welcome!
 
