@@ -36,7 +36,7 @@ class ViewController: NSViewController, CBCentralManagerDelegate, CBPeripheralDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("Test")
+        print("Start")
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
     
@@ -64,33 +64,37 @@ class ViewController: NSViewController, CBCentralManagerDelegate, CBPeripheralDe
             }
     }
     
-//    func startDFU(){
-//        // Do any additional setup after loading the view.
-//        let url = URL(string: "file:///Users/chiara/Documents/app_blink_package_500/nrf52832_xxaa_s132.bin")
-//        let datUrl = URL(string: "file:///Users/chiara/Documents/app_blink_package_500/nrf52832_xxaa_s132.dat")
-//        
-//        
-//        //let selectedFirmware = DFUFirmware(urlToZipFile:url!)
-//        let selectedFirmware = DFUFirmware(urlToBinOrHexFile: url!, urlToDatFile: datUrl!, type: DFUFirmwareType.application)
-//        
-//        //let selectedFirmware = DFUFirmware
-//        
-//        let initiator = DFUServiceInitiator(centralManager: self.centralManager, target: self.selectedPeripheral).withFirmwareFile(selectedFirmware)
-//        // Optional:
-//        // initiator.forceDfu = true/false; // default false
-//        // initiator.packetReceiptNotificationParameter = N; // default is 12
+    func startDFU(){
+        print ("Start DFU")
+        // Do any additional setup after loading the view.
+        let url = URL(string: "file:///Users/chiara/Documents/app_blink_package_1000/nrf52832_xxaa_s132.bin")
+        let datUrl = URL(string: "file:///Users/chiara/Documents/app_blink_package_1000/nrf52832_xxaa_s132.dat")
+        
+        
+        //let selectedFirmware = DFUFirmware(urlToZipFile:url!)
+        let selectedFirmware = DFUFirmware(urlToBinOrHexFile: url!, urlToDatFile: datUrl!, type: DFUFirmwareType.application)
+        
+        //let selectedFirmware = DFUFirmware
+        
+        //let initiator = DFUServiceInitiator(centralManager: self.centralManager, target: self.selectedPeripheral).withFirmwareFile(selectedFirmware)
+        
+        let initiator = DFUServiceInitiator(centralManager: self.centralManager!, target: self.selectedPeripheral)
+        initiator.with(firmware: selectedFirmware!)
+        // Optional:
+        // initiator.forceDfu = true/false; // default false
+        // initiator.packetReceiptNotificationParameter = N; // default is 12
 //        initiator.logger = self; // - to get log info
 //        initiator.delegate = self; // - to be informed about current state and errors
 //        initiator.progressDelegate = self; // - to show progress bar
-//        // initiator.peripheralSelector = ... // the default selector is used
-//        
-//        let controller = initiator.start()
-//        
-//        
-//        print("END")
-//
-//    
-//    }
+        // initiator.peripheralSelector = ... // the default selector is used
+        
+        let controller = initiator.start()
+        
+        
+        print("END")
+
+    
+    }
 
     override var representedObject: Any? {
         didSet {
@@ -115,42 +119,18 @@ class ViewController: NSViewController, CBCentralManagerDelegate, CBPeripheralDe
                     //discoveredPeripheralsTableView.reloadData()
                 }
             }else{
-                print("Found Legacy Peripheral: \(peripheral.name!)")
+                print("Found Legacy Peripheral: \(peripheral.name!) \(peripheral.identifier.uuidString)")
                 if self.discoveredPeripherals?.contains(peripheral) == false {
                     self.discoveredPeripherals?.append(peripheral)
                     self.securePeripheralMarkers?.append(false)
+                    print("Test1")
+                    
+                    self.selectedPeripheral = peripheral
+                    self.startDFU()
                     //discoveredPeripheralsTableView.reloadData()
                 }
             }
         }
     }
-//    
-//    class BLEHandler : NSObject, CBCentralManagerDelegate {
-//        override init () {
-//            super.init()
-//        }
-//        
-//        func centralManagerDidUpdateState(central: CBCentralManager){
-//            switch (central.state)
-//            {
-//            case.Unsupported:
-//                print("BLE is not supported")
-//            case.Unauthorized:
-//                print("BLE is unauthorized")
-//            case.Unknown:
-//                print("BLE is Unknown")
-//            case.Resetting:
-//                print("BLE is Resetting")
-//            case.PoweredOff:
-//                print("BLE service is powered off")
-//            case.PoweredOn:
-//                print("BLE service is powered on")
-//            default:
-//                print("default state")
-//            }
-//        }
-//    }
-
-
 }
 
