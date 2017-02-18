@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D35BFA891E250B8400FE8747"
-               BuildableName = "CocoaTest3.app"
-               BlueprintName = "CocoaTest3"
-               ReferencedContainer = "container:CocoaTest3.xcodeproj">
+               BuildableName = "nrf_bledfu_mac.app"
+               BlueprintName = "nrf_bledfu_mac"
+               ReferencedContainer = "container:nrf_bledfu_mac.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D35BFA9A1E250B8400FE8747"
-               BuildableName = "CocoaTest3Tests.xctest"
-               BlueprintName = "CocoaTest3Tests"
-               ReferencedContainer = "container:CocoaTest3.xcodeproj">
+               BuildableName = "nrf_bledfu_macTests.xctest"
+               BlueprintName = "nrf_bledfu_macTests"
+               ReferencedContainer = "container:nrf_bledfu_mac.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D35BFAA51E250B8400FE8747"
-               BuildableName = "CocoaTest3UITests.xctest"
-               BlueprintName = "CocoaTest3UITests"
-               ReferencedContainer = "container:CocoaTest3.xcodeproj">
+               BuildableName = "nrf_bledfu_macUITests.xctest"
+               BlueprintName = "nrf_bledfu_macUITests"
+               ReferencedContainer = "container:nrf_bledfu_mac.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -53,16 +53,16 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D35BFA891E250B8400FE8747"
-            BuildableName = "CocoaTest3.app"
-            BlueprintName = "CocoaTest3"
-            ReferencedContainer = "container:CocoaTest3.xcodeproj">
+            BuildableName = "nrf_bledfu_mac.app"
+            BlueprintName = "nrf_bledfu_mac"
+            ReferencedContainer = "container:nrf_bledfu_mac.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -76,11 +76,17 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D35BFA891E250B8400FE8747"
-            BuildableName = "CocoaTest3.app"
-            BlueprintName = "CocoaTest3"
-            ReferencedContainer = "container:CocoaTest3.xcodeproj">
+            BuildableName = "nrf_bledfu_mac.app"
+            BlueprintName = "nrf_bledfu_mac"
+            ReferencedContainer = "container:nrf_bledfu_mac.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "Test"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -95,9 +101,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D35BFA891E250B8400FE8747"
-            BuildableName = "CocoaTest3.app"
-            BlueprintName = "CocoaTest3"
-            ReferencedContainer = "container:CocoaTest3.xcodeproj">
+            BuildableName = "nrf_bledfu_mac.app"
+            BlueprintName = "nrf_bledfu_mac"
+            ReferencedContainer = "container:nrf_bledfu_mac.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
