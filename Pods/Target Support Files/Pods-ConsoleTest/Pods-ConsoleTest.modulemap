@@ -1,0 +1,6 @@
+framework module Pods_ConsoleTest {
+  umbrella header "Pods-ConsoleTest-umbrella.h"
+
+  export *
+  module * { export * }
+}
