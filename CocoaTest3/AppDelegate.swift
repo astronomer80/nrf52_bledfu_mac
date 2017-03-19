@@ -13,10 +13,34 @@ import CoreBluetooth
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, CBCentralManagerDelegate, CBPeripheralDelegate {
 
+    func logWrite(message: String){
+        print (message)
+        //let destinationPath = NSTemporaryDirectory() + "/Users/chiara/Desktop/my_file.txt"
+        let destinationPath = "/Users/chiara/Desktop/my_file.txt"
+        let fileURL = try! FileManager.default.url(for: .desktopDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            .appendingPathComponent("my_file1.txt")
+        
+        if let outputStream = OutputStream(url: fileURL, append: true) {
+            outputStream.open()
+            let text = message + "\n"
+            let bytesWritten = outputStream.write(text, maxLength: text.lengthOfBytes(using: String.Encoding.utf8))//  .write(text, _maxLenght:20)
+            if bytesWritten < 0 { print("write failure") }
+            outputStream.close()
+        } else {
+            print("Unable to open file")
+        }
 
+        do {
+            try message.write(toFile: destinationPath, atomically: true, encoding: String.Encoding.utf8)
+            //try test.write(toFile: destinationPath, atomically: false, encoding: String.Encoding.utf8)
+        }
+        catch {/* error handling here */}
+                //let written = myTextString.write(toFile: destinationPath, atomically: true, encoding: NSUTF8StringEncoding)
+    }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        print ("START1")
+        
+        logWrite(message: "START")
         centralManager = CBCentralManager(delegate: self, queue: nil)
     
     }
@@ -54,29 +78,30 @@ class AppDelegate: NSObject, NSApplicationDelegate, CBCentralManagerDelegate, CB
         switch (central.state)
         {
         case.unsupported:
-            print("BLE is not supported")
+            logWrite(message: "BLE is not supported")
         case.unauthorized:
-            print("BLE is unauthorized")
+            logWrite(message:"BLE is unauthorized")
         case.unknown:
-            print("BLE is Unknown")
+            logWrite(message:"BLE is Unknown")
         case.resetting:
-            print("BLE is Resetting")
+            logWrite(message:"BLE is Resetting")
         case.poweredOff:
-            print("BLE service is powered off")
+            logWrite(message:"BLE service is powered off")
         case.poweredOn:
-            print("BLE service is powered on")
+            logWrite(message:"BLE service is powered on. Scanning for peripherals...")
             centralManager.scanForPeripherals(withServices: nil, options: nil)
         default:
-            print("default state")
+            logWrite(message: "default state")
+            
         }
     }
     
     //Start DFU procedure
     func startDFU(){
-        print ("Start DFU")
+        logWrite(message: "Start DFU")
         // Do any additional setup after loading the view.
-        let url = URL(string: "file:///Users/chiara/Documents/app_blink_package_1000/nrf52832_xxaa_s132.bin")
-        let datUrl = URL(string: "file:///Users/chiara/Documents/app_blink_package_1000/nrf52832_xxaa_s132.dat")
+        let url = URL(string: "file:///Users/chiara/Documents/app_blink_package_500/nrf52832_xxaa_s132.bin")
+        let datUrl = URL(string: "file:///Users/chiara/Documents/app_blink_package_500/nrf52832_xxaa_s132.dat")
         
         
         //let selectedFirmware = DFUFirmware(urlToZipFile:url!)
@@ -84,12 +109,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, CBCentralManagerDelegate, CB
         
         //let selectedFirmware = DFUFirmware
         
-        //let initiator = DFUServiceInitiator(centralManager: self.centralManager, target: self.selectedPeripheral).withFirmwareFile(selectedFirmware)
+        //let initiator = DFUServiceInitiator(centralManager: self.centralManager, twet: self.selectedPeripheral).withFirmwareFile(selectedFirmware)
         
         let initiator = DFUServiceInitiator(centralManager: self.centralManager!, target: self.selectedPeripheral)
         initiator.with(firmware: selectedFirmware!)
         // Optional:
-        // initiator.forceDfu = true/false; // default false
+        //initiator.forceDfu = true;
+        //initiator.logger
+        
+        //initiator.forceDfu = true/false; // default false
         // initiator.packetReceiptNotificationParameter = N; // default is 12
         //        initiator.logger = self; // - to get log info
         //        initiator.delegate = self; // - to be informed about current state and errors
@@ -97,9 +125,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, CBCentralManagerDelegate, CB
         // initiator.peripheralSelector = ... // the default selector is used
         
         let controller = initiator.start()
+        print(controller.debugDescription);
         
-        
-        print("END")
+        logWrite(message: "Ends uploading")
         
         
     }
@@ -111,24 +139,29 @@ class AppDelegate: NSObject, NSApplicationDelegate, CBCentralManagerDelegate, CB
     //
     // Launched when the application starts
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        logWrite(message: "Scanning...");
         //If any BLE device is found
         if advertisementData[CBAdvertisementDataServiceUUIDsKey] != nil {
             //Secure DFU UUID
             let secureUUIDString = CBUUID(string: "FE59").uuidString
             let advertisedUUIDstring = ((advertisementData[CBAdvertisementDataServiceUUIDsKey]!) as AnyObject).firstObject as! CBUUID
             if advertisedUUIDstring.uuidString  == secureUUIDString {
-                print("Found Secure Peripheral: \(peripheral.name!)")
+                logWrite(message: "Found Secure Peripheral: \(peripheral.name!)")
                 if self.discoveredPeripherals?.contains(peripheral) == false {
                     self.discoveredPeripherals?.append(peripheral)
                     self.securePeripheralMarkers?.append(true)
                     //discoveredPeripheralsTableView.reloadData()
+                    
+                    //Start DFU procedure
+                    self.startDFU()
+
                 }
             }else{
-                print("Found Legacy Peripheral: \(peripheral.name!) \(peripheral.identifier.uuidString)")
+                logWrite(message: "Found Legacy Peripheral: \(peripheral.name!) \(peripheral.identifier.uuidString)")
                 if self.discoveredPeripherals?.contains(peripheral) == false {
                     self.discoveredPeripherals?.append(peripheral)
                     self.securePeripheralMarkers?.append(false)
-                    print("Test1")
+                    logWrite(message: "Test1")
                     
                     self.selectedPeripheral = peripheral
                     

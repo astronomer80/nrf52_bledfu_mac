@@ -11,11 +11,9 @@
 		D35BFA8E1E250B8400FE8747 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35BFA8D1E250B8400FE8747 /* AppDelegate.swift */; };
 		D35BFA921E250B8400FE8747 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D35BFA911E250B8400FE8747 /* Assets.xcassets */; };
 		D35BFA951E250B8400FE8747 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D35BFA931E250B8400FE8747 /* Main.storyboard */; };
-		D35BFAA01E250B8400FE8747 /* CocoaTest3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35BFA9F1E250B8400FE8747 /* CocoaTest3Tests.swift */; };
-		D35BFAAB1E250B8400FE8747 /* CocoaTest3UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35BFAAA1E250B8400FE8747 /* CocoaTest3UITests.swift */; };
-		D35BFAB91E250D7E00FE8747 /* iOSDFULibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35BFAB81E250D7E00FE8747 /* iOSDFULibrary.framework */; };
-		D35BFABA1E250D7E00FE8747 /* iOSDFULibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D35BFAB81E250D7E00FE8747 /* iOSDFULibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D35BFAC51E2AE4D700FE8747 /* Readme.md in Sources */ = {isa = PBXBuildFile; fileRef = D35BFAC41E2AE4D700FE8747 /* Readme.md */; };
+		D35ECF621E7C94FC0025ACF8 /* iOSDFULibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35ECF5E1E7C94EB0025ACF8 /* iOSDFULibrary.framework */; };
+		D35ECF671E7C9C700025ACF8 /* iOSDFULibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D35ECF661E7C9C700025ACF8 /* iOSDFULibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +40,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
-				D35BFABA1E250D7E00FE8747 /* iOSDFULibrary.framework in Embed Frameworks */,
+				D35ECF671E7C9C700025ACF8 /* iOSDFULibrary.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -59,13 +57,11 @@
 		D35BFA941E250B8400FE8747 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D35BFA961E250B8400FE8747 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D35BFA9B1E250B8400FE8747 /* nrf_bledfu_macTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = nrf_bledfu_macTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D35BFA9F1E250B8400FE8747 /* CocoaTest3Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaTest3Tests.swift; sourceTree = "<group>"; };
-		D35BFAA11E250B8400FE8747 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D35BFAA61E250B8400FE8747 /* nrf_bledfu_macUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = nrf_bledfu_macUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D35BFAAA1E250B8400FE8747 /* CocoaTest3UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaTest3UITests.swift; sourceTree = "<group>"; };
-		D35BFAAC1E250B8400FE8747 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D35BFAB81E250D7E00FE8747 /* iOSDFULibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSDFULibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D35BFAC41E2AE4D700FE8747 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
+		D35ECF5E1E7C94EB0025ACF8 /* iOSDFULibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSDFULibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D35ECF661E7C9C700025ACF8 /* iOSDFULibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = iOSDFULibrary.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D35BFAB91E250D7E00FE8747 /* iOSDFULibrary.framework in Frameworks */,
+				D35ECF621E7C94FC0025ACF8 /* iOSDFULibrary.framework in Frameworks */,
 				396C66B8F9EE3E8D12141B26 /* Pods_CocoaTest3.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -116,10 +112,10 @@
 		D35BFA811E250B8400FE8747 = {
 			isa = PBXGroup;
 			children = (
+				D35ECF661E7C9C700025ACF8 /* iOSDFULibrary.framework */,
+				D35ECF5E1E7C94EB0025ACF8 /* iOSDFULibrary.framework */,
 				D35BFAC41E2AE4D700FE8747 /* Readme.md */,
 				D35BFA8C1E250B8400FE8747 /* nrf_bledfu_mac */,
-				D35BFA9E1E250B8400FE8747 /* CocoaTest3Tests */,
-				D35BFAA91E250B8400FE8747 /* CocoaTest3UITests */,
 				D35BFA8B1E250B8400FE8747 /* Products */,
 				470F2001514FC95C5A52099D /* Pods */,
 				1D619092F2C5B6889996098C /* Frameworks */,
@@ -146,24 +142,6 @@
 			);
 			name = nrf_bledfu_mac;
 			path = CocoaTest3;
-			sourceTree = "<group>";
-		};
-		D35BFA9E1E250B8400FE8747 /* CocoaTest3Tests */ = {
-			isa = PBXGroup;
-			children = (
-				D35BFA9F1E250B8400FE8747 /* CocoaTest3Tests.swift */,
-				D35BFAA11E250B8400FE8747 /* Info.plist */,
-			);
-			path = CocoaTest3Tests;
-			sourceTree = "<group>";
-		};
-		D35BFAA91E250B8400FE8747 /* CocoaTest3UITests */ = {
-			isa = PBXGroup;
-			children = (
-				D35BFAAA1E250B8400FE8747 /* CocoaTest3UITests.swift */,
-				D35BFAAC1E250B8400FE8747 /* Info.plist */,
-			);
-			path = CocoaTest3UITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -363,7 +341,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D35BFAA01E250B8400FE8747 /* CocoaTest3Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,7 +348,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D35BFAAB1E250B8400FE8747 /* CocoaTest3UITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
