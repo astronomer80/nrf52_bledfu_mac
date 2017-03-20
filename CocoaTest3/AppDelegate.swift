@@ -12,41 +12,80 @@ import CoreBluetooth
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, CBCentralManagerDelegate, CBPeripheralDelegate {
+    
+    func readParameters(){
+        logWrite(message: "readParams")
+        for argument in CommandLine.arguments {
+            switch argument {
+            case "arg1":
+                print("first argument");
+                
+            case "arg2":
+                print("second argument");
+                
+            default:
+                logWrite(message: "an argument "  + argument);
+            }
+        }
+    }
+    
+    func readParameterFile(){
+        let fileName = "nrf_bledfu_mac_output.txt"
+        let DocumentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+        
+        let fileURL = DocumentDirURL.appendingPathComponent(fileName).appendingPathExtension("txt")
+        print("FilePath: \(fileURL.path)")
+        
+        
+        var readString = "" // Used to store the file contents
+        do {
+            // Read the file contents
+            readString = try String(contentsOf: fileURL)
+        } catch let error as NSError {
+            print("Failed reading from URL: \(fileURL), Error: " + error.localizedDescription)
+        }
+        print("File Text: \(readString)")
+    
+    }
 
     func logWrite(message: String){
         print (message)
-        //let destinationPath = NSTemporaryDirectory() + "/Users/chiara/Desktop/my_file.txt"
-        let destinationPath = "/Users/chiara/Desktop/my_file.txt"
-        let fileURL = try! FileManager.default.url(for: .desktopDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-            .appendingPathComponent("my_file1.txt")
+        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            .appendingPathComponent("nrf_bledfu_mac_output.txt")
         
         if let outputStream = OutputStream(url: fileURL, append: true) {
             outputStream.open()
             let text = message + "\n"
-            let bytesWritten = outputStream.write(text, maxLength: text.lengthOfBytes(using: String.Encoding.utf8))//  .write(text, _maxLenght:20)
+            let bytesWritten = outputStream.write(text, maxLength: text.lengthOfBytes(using: String.Encoding.utf8))
             if bytesWritten < 0 { print("write failure") }
             outputStream.close()
         } else {
             print("Unable to open file")
         }
-
+    }
+    
+    func logWrite_alt(message: String){
+        print (message)
+        //let destinationPath = NSTemporaryDirectory() + "/Users/chiara/Desktop/my_file.txt"
+        let destinationPath = "/Users/chiara/Desktop/my_file.txt"
+       
         do {
             try message.write(toFile: destinationPath, atomically: true, encoding: String.Encoding.utf8)
             //try test.write(toFile: destinationPath, atomically: false, encoding: String.Encoding.utf8)
         }
         catch {/* error handling here */}
-                //let written = myTextString.write(toFile: destinationPath, atomically: true, encoding: NSUTF8StringEncoding)
+        //let written = myTextString.write(toFile: destinationPath, atomically: true, encoding: NSUTF8StringEncoding)
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        
+        readParameters()
         logWrite(message: "START")
         centralManager = CBCentralManager(delegate: self, queue: nil)
     
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        logWrite(message: "applicationWillTerminate")
     }
 
     //MARK: - Class properties

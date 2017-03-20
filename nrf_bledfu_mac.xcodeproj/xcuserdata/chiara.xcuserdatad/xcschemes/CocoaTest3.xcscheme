@@ -91,7 +91,11 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "Test"
+            argument = "Ti amo Titti"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "Test2"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
