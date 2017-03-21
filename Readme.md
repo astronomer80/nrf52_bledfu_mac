@@ -1,5 +1,5 @@
 #CocoaApplication to Scan BLE devices with DFU Service and to perform the DFU via BLE using iOSDFULibrary.framework
-Usage: open nrf_bledfu_mac.app --args [help] or [scan] or [update -f <bin_file> -d <dat_file> -a <device_address>] or [update -z <zip_file> -a <device_address>]<br/>
+Usage: nrf_bledfu_mac [help] or [scan] or [update -f <bin_file> -d <dat_file> -a <device_address>] or [update -z <zip_file> -a <device_address>]<br/>
 <br/>
 OTA DFU update application for nrf5x MCUs. Visit https://github.com/astronomer80/nrf52_bledfu_mac for more information<br/>
 Here a list of commands available:<br/>
@@ -13,10 +13,10 @@ update -h < hex_file/bin_file > -a <device_address>. hex_file or the bin_file is
 -v: Verbose mode. Adding this parameter as last shows more information during the update procedure.
 <br/>
 Example:<br/>
-OTADfu_Console.exe help<br/>
-OTADfu_Console.exe scan<br/>
-OTADfu_Console.exe update -z application.zip -a xxxxxxx<br/>
-OTADfu_Console.exe update -f application.bin -d application.dat -a xxxxxxx<br/>
-OTADfu_Console.exe update -h application.bin -a xxxxxxx -v<br/>
+nrf_bledfu_mac help<br/>
+nrf_bledfu_mac scan<br/>
+nrf_bledfu_mac update -z application.zip -a xxxxxxx<br/>
+nrf_bledfu_mac update -f application.bin -d application.dat -a xxxxxxx<br/>
+nrf_bledfu_mac update -h application.bin -a xxxxxxx -v<br/>
 where xxxxxxx is the device address returned by scan command
 <br/>
