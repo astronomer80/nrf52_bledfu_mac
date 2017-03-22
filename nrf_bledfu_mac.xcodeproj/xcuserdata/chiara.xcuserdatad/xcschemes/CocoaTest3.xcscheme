@@ -91,7 +91,23 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "scan"
+            argument = "update"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-a CA70D541-C392-415E-992C-9E48BE935674"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-d /Users/chiara/Documents/app_blink_package_1000/nrf52832_xxaa_s132.dat"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "verbose"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-f /Users/chiara/Documents/app_blink_package_1000/nrf52832_xxaa_s132.bin&#10;-d /Users/chiara/Documents/app_blink_package_1000/nrf52832_xxaa_s132.dat"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
