@@ -21,8 +21,8 @@ nrf_bledfu_mac update -h application.bin -a xxxxxxx -v<br/>
 where xxxxxxx is the device address returned by scan command
 <br/>
 **TODO**
- - Control the progress of the DFU
+ - Control the progress of the DFU and automatically close the app after DFU
  - Add nrfutil integration (to create the dat file from hex file)
- - Add softdevice and bootloader update<br/>
+ - Check softdevice and bootloader update<br/>
  - BLE Dfu with key<br/>
 
