@@ -20,6 +20,8 @@ nrf_bledfu_mac update -f application.bin -d application.dat -a xxxxxxx<br/>
 nrf_bledfu_mac update -h application.bin -a xxxxxxx -v<br/>
 where xxxxxxx is the device address returned by scan command
 <br/>
+
+
 **TODO**
  - Control the progress of the DFU and automatically close the app after DFU
  - Add nrfutil integration (to create the dat file from hex file)
