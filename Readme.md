@@ -25,6 +25,6 @@ where xxxxxxx is the device address returned by scan command
 **TODO**
  - Control the progress of the DFU and automatically close the app after DFU
  - Add nrfutil integration (to create the dat file from hex file)
- - Check softdevice and bootloader update<br/>
+ - Handle softdevice and bootloader update<br/>
  - BLE Dfu with key<br/>
 
